@@ -181,56 +181,70 @@ for (let i = 0; i < modalButton.length; i++) {
     }
 }
 // Cart
-var LIST_PRODUCT = [];
-let carts = document.querySelectorAll('.btn');
+// var LIST_PRODUCT = [];
+// let carts = document.querySelectorAll('.btn');
 
-for (let i = 0; i < carts.length; i++) {
-  carts[i].addEventListener('click', () => {
-    cartNumber();
-    console.log(carts[i]);
-  });
-}
-function cartNumber() {
-  let pro = localStorage.getItem('cartNumber');
-  localStorage.setItem('cartNumber', 1);
-  console.log(pro);
-}
-
-
-
-function AddProduct(id) {
-  var myProduct = product.filter(pr => pr.id == id);
-  LIST_PRODUCT.push(myProduct);
-  console.log(LIST_PRODUCT);
-
-  document.getElementById("totalCardProduct").innerHTML = LIST_PRODUCT.length;
-  alert('Sản phẩm đã được thêm vào giỏ hàng ')
-}
-
-//show chi tiết 
-// let view_click = document.querySelector('.btn_item');
-
-// let showView = document.querySelector('.showview');
-// for(let i=0;i<view_click.length;i++){
-//   view_click[i].addEventListener('click',()=>{
-//   showView.innerHTML = '';
-//   showView.insertAdjacentHTML('beforeend',`<div class="info_text"> <div class="info_img">
-//   <img class="img_pro_view" wirdth="170" height="170" src="./media/img/./${pic}"/>
-// </div>
-// <div class="title_view">
-//   <div><b style="color: red;">${product[i].name}</b></div>
-//   <div><b> KIND:</b> <span>${product[i].kind}</span></div>
-//   <div><b> ROT:</b> <span>${product[i].rot}</span></div>
-//   <div> <b> SINGER:</b> <span>${product[i].singer}</span></div>
-//   <div><span><b> PRICE</b>: ${product[i].price} vnđ</span></div>
-//   <button class="close_btns" onclick="document.getElementById('view').style.display='none'">Close</button>
-// </div>`)
-// })
-
+// for (let i = 0; i < carts.length; i++) {
+//   carts[i].addEventListener('click', () => {
+//     cartNumber();
+//     console.log(carts[i]);
+//   });
+// }
+// function cartNumber() {
+//   let pro = localStorage.getItem('cartNumber');
+//   localStorage.setItem('cartNumber', 1);
+//   console.log(pro);
 // }
 
-// console.log(showView)
 
-function showcard(){
-  
+
+// function AddProduct(id) {
+//   var myProduct = product.filter(pr => pr.id == id);
+//   LIST_PRODUCT.push(myProduct);
+//   console.log(LIST_PRODUCT);
+
+//   document.getElementById("totalCardProduct").innerHTML = LIST_PRODUCT.length;
+//   alert('Sản phẩm đã được thêm vào giỏ hàng ')
+// }
+var LIST_PRODUCT = [];
+let cartBtn = document.getElementById('cart')
+let showCartContainer = document.getElementById('show-cart__item')
+let carts = {}
+cartBtn.onclick = function() {
+  for(let product of LIST_PRODUCT) {
+    let name = product.name
+    if (name in carts) {
+      carts[name] ++
+    } else {
+      carts[name] = 1;
+    }
+  }
+
+  console.log(carts)
+  showCartContainer.innerHTML = ''
+  for (let item in carts) {
+    let showCartItem = `
+    
+    
+    <table border="1" cellspacing="10">
+      <tr>
+        <td>Tên Sản Phẩm</td>
+        <td>Số Lượng</td>
+      </tr>
+      <tr>
+        <td><a>${item}</a></td>
+        <td><a>${carts[item]}</a><td>
+      </tr>
+    </table>
+    `
+    showCartContainer.innerHTML += showCartItem
+  }
+}
+
+function AddProduct(id) {
+  let targetItem = product[id]
+
+  LIST_PRODUCT.push(targetItem);
+
+  document.getElementById("totalCardProduct").innerHTML = LIST_PRODUCT.length;
 }

@@ -888,3 +888,8 @@ img.Img{
 .conten{
   float: right;
 }
+#show-cart{
+  position: absolute;
+  top: 800px;
+  padding-left: 700px;
+}
